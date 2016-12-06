@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:visibility="gone" />
+         />
 
     <Button
         android:id="@+id/button_NoAccount"
@@ -32,10 +32,12 @@
         android:layout_above="@id/login_button_visible"
         android:visibility="gone"/>
 
+    <!--
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button_invisible"
         android:layout_width="1sp"
         android:layout_height="1sp"/>
+    -->
 
     <ProgressBar
         android:id="@+id/bg_loading"

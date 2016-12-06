@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity" />
+        <activity android:name=".StartActivity" />
         <activity android:name=".LoginActivity" />
 
         <meta-data
@@ -56,12 +56,13 @@
         // Facebook 추가
 
         // Facebook 추가 - 로그인, 공유 기능을 사용하기 위함
+        <!--
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        \
+        -->
         <activity android:name=".BlankActivity"></activity>
     </application>
 

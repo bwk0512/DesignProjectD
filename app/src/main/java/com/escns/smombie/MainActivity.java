@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                             stopService(new Intent((MainActivity.this), PedometerCheckService.class));
                         }
 
-                        com.facebook.login.LoginManager.getInstance().logOut();
+                        //com.facebook.login.LoginManager.getInstance().logOut();
                         startActivity(new Intent(getApplicationContext(), StartActivity.class));
                         finish();
                         return true;

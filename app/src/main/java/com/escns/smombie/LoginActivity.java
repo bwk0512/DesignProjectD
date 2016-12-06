@@ -17,15 +17,15 @@ import com.escns.smombie.DAO.User;
 import com.escns.smombie.DAO.UserJoinRecord;
 import com.escns.smombie.Interface.ApiService;
 import com.escns.smombie.Manager.DBManager;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+//import com.facebook.AccessToken;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.FacebookSdk;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
+//import com.facebook.login.LoginResult;
+//import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Callback;
@@ -62,17 +62,17 @@ public class LoginActivity extends Activity {
     private boolean isAutoLogin;
 
     ImageView mLoginBackground;
-    LoginButton mLoginButtonInvisible;      // 페이스북 로그인 버튼
+    //LoginButton mLoginButtonInvisible;      // 페이스북 로그인 버튼
     ImageView mLoginButtonVisible;          // 커스텀 로그인 버튼
 
-    CallbackManager callbackManager;        // 콜백
+    //CallbackManager callbackManager;        // 콜백
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 페이스북 sdk 초기화
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        //FacebookSdk.sdkInitialize(getApplicationContext());
         MultiDex.install(this);
 
         setContentView(R.layout.activity_login);
@@ -109,6 +109,7 @@ public class LoginActivity extends Activity {
             }
         });
 
+        /*
         // 로그인 응답을 처리할 콜백 관리자를 만듬
         callbackManager = CallbackManager.Factory.create();
 
@@ -209,26 +210,27 @@ public class LoginActivity extends Activity {
                 checkUserIdText(mFbId);
             }
         });
+        */
     }
 
     /**
      * Facebook SDK 로그인 또는 공유와 통합한 모든 액티비티와 프래그먼트에서
      * onActivityResult를 callbackManager에 전달해야 한다
      */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+    //@Override
+    //protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //    super.onActivityResult(requestCode, resultCode, data);
+    //    callbackManager.onActivityResult(requestCode, resultCode, data);
+    //}
 
     /**
      * 현재 로그인 상태를 검사하는 함수
      * @return 로그인 중이면 1을 아니면 0을 반환
      */
-    public boolean isLogin() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
-    }
+    //public boolean isLogin() {
+    //    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+    //    return accessToken != null;
+    //}
 
     /**
      * 동일한 User_id_text 를 가진 user가 있는지 확인한다.
