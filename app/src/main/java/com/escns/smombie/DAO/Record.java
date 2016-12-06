@@ -11,8 +11,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Record {
 
-    @SerializedName("USER_ID_INT")
-    private int mIdInt; // 유저 고유 번호
+    @SerializedName("POINT")
+    private int mPoint; // 포인트
+    @SerializedName("PURPOSE")
+    private String mPurpose;  // 목적
     @SerializedName("YEAR")
     private int mYear;  //  연도
     @SerializedName("MONTH")
@@ -21,32 +23,39 @@ public class Record {
     private int mDay;   // 일
     @SerializedName("HOUR")
     private int mHour;  // 시간
-    @SerializedName("DIST")
-    private int mDist;  // 걸음 수
 
     /**
      * 생성자
-     * @param mIdInt 유저 고유 번호
+     * @param mPoint 유저 고유 번호
+     * @param mPurpose 목적
      * @param mYear 연도
      * @param mMonth 달
      * @param mDay 일
      * @param mHour 시간
-     * @param mDist 걸음 수
      */
-    public Record(int mIdInt, int mYear, int mMonth, int mDay, int mHour, int mDist) {
-        this.mIdInt = mIdInt;
+    public Record(int mPoint, String mPurpose, int mYear, int mMonth, int mDay, int mHour) {
+        this.mPoint = mPoint;
+        this.mPurpose = mPurpose;
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mDay = mDay;
         this.mHour = mHour;
-        this.mDist = mDist;
-    }
-    public int getmIdInt() {
-        return mIdInt;
     }
 
-    public void setmIdInt(int mIdInt) {
-        this.mIdInt = mIdInt;
+    public int getmPoint() {
+        return mPoint;
+    }
+
+    public void setmPoint(int mPoint) {
+        this.mPoint = mPoint;
+    }
+
+    public String getmPurpose() {
+        return mPurpose;
+    }
+
+    public void setmPurpose(String mPurpose) {
+        this.mPurpose = mPurpose;
     }
 
     public int getmYear() {
@@ -81,23 +90,15 @@ public class Record {
         this.mHour = mHour;
     }
 
-    public int getmDist() {
-        return mDist;
-    }
-
-    public void setmDist(int mDist) {
-        this.mDist = mDist;
-    }
-
     @Override
     public String toString() {
         return "Record {" +
-                "mIdInt='" + mIdInt + '\'' +
+                "mPoint='" + mPoint + '\'' +
                 ", mYear=" + mYear +
                 ", mMonth=" + mMonth +
                 ", mDay=" + mDay +
                 ", mHour=" + mHour +
-                ", mDist=" + mDist +
+                ", mPurpose=" + mPurpose +
                 '}';
     }
 }
