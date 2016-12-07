@@ -44,10 +44,10 @@ public class InfoFragment extends Fragment {
         pref = mContext.getSharedPreferences(getResources().getString(R.string.app_name), mContext.MODE_PRIVATE);
 
         // 내정보 출력
-        ((TextView) rootView.findViewById(R.id.info_name)).setText(pref.getString("NAME",""));
-        ((TextView) rootView.findViewById(R.id.info_gender)).setText(pref.getString("GENDER",""));
-        ((TextView) rootView.findViewById(R.id.info_age)).setText(pref.getInt("AGE",20)+"세");
-        ((TextView) rootView.findViewById(R.id.info_email)).setText(pref.getString("EMAIL",""));
+        ((TextView) rootView.findViewById(R.id.info_name)).setText(pref.getString("userName",""));
+        ((TextView) rootView.findViewById(R.id.info_gender)).setText(pref.getString("userGender",""));
+        ((TextView) rootView.findViewById(R.id.info_age)).setText(pref.getInt("userAge",00)+"세");
+        ((TextView) rootView.findViewById(R.id.info_email)).setText(pref.getString("userEmail",""));
 
     }
 }

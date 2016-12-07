@@ -206,18 +206,25 @@ public class PedometerCheckService extends Service {
                 record.setmDay(mDay);
                 record.setmHour(mHour);
 
-                if(list.get(list.size()-1).getmYear() == mYear &&
-                        list.get(list.size()-1).getmMonth() == mMonth &&
-                        list.get(list.size()-1).getmDay() == mDay &&
-                        list.get(list.size()-1).getmHour() == mHour ) {
+                int cnt = mDbManger.getRowCount();
 
-                    record.setmPoint(mPoint);
-                    mDbManger.updateLastRecord(record);
+                if(cnt == 0) {
+                    mDbManger.insertRecord(record);
                 }
                 else {
-                    mPoint = 0;
-                    record.setmPoint(mPoint);
-                    mDbManger.insertRecord(record);
+                    if (list.get(cnt).getmYear() == mYear &&
+                            list.get(cnt).getmMonth() == mMonth &&
+                            list.get(cnt).getmDay() == mDay &&
+                            list.get(cnt).getmHour() == mHour) {
+
+                        mPoint = list.get(cnt).getmPoint();
+                        record.setmPoint(mPoint);
+                        mDbManger.updateLastRecord(record);
+                    } else {
+                        mPoint = 0;
+                        record.setmPoint(mPoint);
+                        mDbManger.insertRecord(record);
+                    }
                 }
 
 
@@ -332,18 +339,26 @@ public class PedometerCheckService extends Service {
         mHour = c.get(Calendar.HOUR_OF_DAY);
         record = new Record(mPoint,mPurpose,mYear,mMonth,mDay,mHour);
 
-        if(list.get(list.size()-1).getmYear() == mYear &&
-                list.get(list.size()-1).getmMonth() == mMonth &&
-                list.get(list.size()-1).getmDay() == mDay &&
-                list.get(list.size()-1).getmHour() == mHour ) {
+        /*
+        int cnt = mDbManger.getRowCount();
 
-                mPoint = list.get(list.size()-1).getmPoint();
-                record.setmPoint(mPoint);
-                mDbManger.updateLastRecord(record);
-        }
-        else {
+        if(cnt == 0) {
             mDbManger.insertRecord(record);
         }
+        else {
+            if (list.get(cnt).getmYear() == mYear &&
+                    list.get(cnt).getmMonth() == mMonth &&
+                    list.get(cnt).getmDay() == mDay &&
+                    list.get(cnt).getmHour() == mHour) {
+
+                mPoint = list.get(list.size() - 1).getmPoint();
+                record.setmPoint(mPoint);
+                mDbManger.updateLastRecord(record);
+            } else {
+                mDbManger.insertRecord(record);
+            }
+        }
+        */
 
         //noSaveConut = 0;
 

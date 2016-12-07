@@ -64,8 +64,10 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // DB 생성
+        pref = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
+
         mDbManger = new DBManager(this);
+        mDbManger.dropAllTable();
         mDbManger.CreateAllTable();
 
 
@@ -77,7 +79,7 @@ public class LoginActivity extends Activity {
         mUserEmail = "hyo99075@naver.com";
         mUserPoint = 100;
 
-        pref = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
+
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("userId",mUserId);
         editor.putString("userPassword",mUserPassword);
@@ -86,6 +88,7 @@ public class LoginActivity extends Activity {
         editor.putString("userGender",mUserGender);
         editor.putString("userEmail",mUserEmail);
         editor.putInt("userPoint",mUserPoint);
+        editor.commit();
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

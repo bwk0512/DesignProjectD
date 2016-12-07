@@ -271,18 +271,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() {
                 //Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                if (pref.getBoolean("switch", true)) {
-                    Log.d("tag", "강제실행!!!");
-                    pref.edit().putBoolean("switch", true).commit();
-
-                    startService(new Intent((MainActivity.this), PedometerCheckService.class));
-                }
+                //if (pref.getBoolean("switch", true)) {
+                //    Log.d("tag", "강제실행!!!");
+                //    pref.edit().putBoolean("switch", true).commit();
+                //    startService(new Intent((MainActivity.this), PedometerCheckService.class));
+                //}
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 //Toast.makeText(MainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-                pref.edit().putBoolean("switch", false).commit();
+                //pref.edit().putBoolean("switch", false).commit();
             }
         };
 

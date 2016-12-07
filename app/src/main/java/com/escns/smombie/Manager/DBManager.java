@@ -53,7 +53,6 @@ public class DBManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         StringBuffer sb = new StringBuffer();
-        StringBuffer sb2 = new StringBuffer();
 
         sb.append(" CREATE TABLE " + RECORD_TABLE + " ( ");
         sb.append(" _id INTEGER PRIMARY KEY AUTOINCREMENT, "); // 의미없음
@@ -64,6 +63,15 @@ public class DBManager extends SQLiteOpenHelper {
         sb.append(" DAY INTEGER, ");
         sb.append(" HOUR INTEGER ) ");
 
+        db.execSQL(sb.toString());
+
+        db.close();
+
+
+        SQLiteDatabase db2 = getWritableDatabase();
+
+        StringBuffer sb2 = new StringBuffer();
+
         sb2.append(" CREATE TABLE " + ITEM_TABLE + " ( ");
         sb2.append(" _id INTEGER PRIMARY KEY AUTOINCREMENT, "); // 의미없음
         sb2.append(" NAME VARCHAR(20), ");
@@ -71,10 +79,10 @@ public class DBManager extends SQLiteOpenHelper {
         sb2.append(" IMAGE VARCHAR(20), ");
         sb2.append(" ACCOUNT INTEGER ) ");
 
-        db.execSQL(sb.toString());
-        db.execSQL(sb2.toString());
+        db2.execSQL(sb2.toString());
 
-        db.close();
+        db2.close();
+
     }
 
     /**
@@ -210,9 +218,10 @@ public class DBManager extends SQLiteOpenHelper {
     /**
      * Record 테이블 삭제
      */
-    public void dropRecordTable_() {
+    public void dropAllTable() {
         SQLiteDatabase db = getWritableDatabase(); // 데이터베이스 불러오기 - 쓰기전용
         db.execSQL("DROP TABLE IF EXISTS " + RECORD_TABLE); // 쿼리문 입력
+        db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE); // 쿼리문 입력
         db.close();
     }
 
@@ -264,7 +273,7 @@ public class DBManager extends SQLiteOpenHelper {
      * Record 테이블의 현재 행의 갯수를 반환한다
      * @return 행의 갯수
      */
-    public int getRowCount_() {
+    public int getRowCount() {
         int cnt = 0;
 
         SQLiteDatabase db = getWritableDatabase(); // 데이터베이스 불러오기 - 쓰기전용

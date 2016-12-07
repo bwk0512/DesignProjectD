@@ -143,6 +143,7 @@ public class MainFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.section3_text)).setText(""+pref.getInt("REWORD", 0));
 
         if (!statAppFirst) {
+            /*
             try {
                 Thread.sleep(100);
 
@@ -152,6 +153,9 @@ public class MainFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            */
+            ((TextView)rootView.findViewById(R.id.user_email)).setText(pref.getString("userEmail", "사용자 이메일"));
+            Log.i("tag", "EMAIL " + pref.getString("userEmail", "사용자 이메일"));
         }
         else {
             statAppFirst = false;
@@ -167,6 +171,7 @@ public class MainFragment extends Fragment {
 
         mContext = getContext();
 
+        /*
         Thread thread =  new Thread(new Runnable() {
             @Override
             public void run() {
@@ -191,6 +196,10 @@ public class MainFragment extends Fragment {
             }
         });
         thread.start();
+        */
+
+        ((TextView)rootView.findViewById(R.id.user_email)).setText(pref.getString("userEmail", "사용자 이메일"));
+        Log.i("tag", "EMAIL " + pref.getString("userEmail", "사용자 이메일"));
 
         TwoWayView twoWayView1 = (TwoWayView) rootView.findViewById(R.id.item_main_detail1);
         twoWayView1.setAdapter(new ItemMainAdapter(mContext, 0, getItemMains(3)));
