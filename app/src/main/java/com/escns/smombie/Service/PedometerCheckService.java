@@ -85,6 +85,8 @@ public class PedometerCheckService extends Service {
     private int mDay;   // 일
     private int mHour;  // 시간
 
+    private int mNowPoint;
+
     //private int noSaveConut;
 
     private DBManager mDbManger;
@@ -227,6 +229,10 @@ public class PedometerCheckService extends Service {
                     }
                 }
 
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("userPoint",mNowPoint);
+                editor.commit();
+
 
 
                 /*
@@ -357,6 +363,8 @@ public class PedometerCheckService extends Service {
                 mDbManger.insertRecord(record);
             }
         }
+
+        mNowPoint = pref.getInt("userPoint",0);
 
         //noSaveConut = 0;
 
@@ -491,6 +499,7 @@ public class PedometerCheckService extends Service {
 
                         //if(!global.getIsScreen()) {
                             mPoint++;
+                            mNowPoint++;
                         //}
                     }
                     else {

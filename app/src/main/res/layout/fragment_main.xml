@@ -184,6 +184,7 @@
                 android:orientation="horizontal" >
 
                 <LinearLayout
+                    android:id="@+id/goPoint"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -225,6 +226,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/goGoal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -266,6 +268,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/goShop"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -296,14 +299,14 @@
                             style="@style/sectionText"/>
 
                     </RelativeLayout>
-
+                    <!--
                     <TextView
                         android:id="@+id/section3_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         style="@style/sectionText"/>
-
+                       -->
                 </LinearLayout>
 
             </LinearLayout>

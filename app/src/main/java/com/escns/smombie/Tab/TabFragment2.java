@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.escns.smombie.DAO.Record;
+import com.escns.smombie.Manager.DBManager;
 import com.escns.smombie.R;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -34,7 +36,10 @@ public class TabFragment2 extends Fragment {
     Context mContext; // MainActiviy의 context를 받아올 객체
     private SharedPreferences pref; // 파일에 있는 정보를 불러오기위한 객체
 
-    ImageView buttonOne, buttonTwo; // 버튼 : 성별/나이
+    private DBManager mDbManager; // Local DB에 접근하기 위한 객체
+    private List<Record> list; // DB에서 Recod를 가져오기 위한 List
+
+    //ImageView buttonOne, buttonTwo; // 버튼 : 성별/나이
 
     RelativeLayout layout1, layout2; // 레이아웃 : 성별/나이
 
@@ -52,7 +57,7 @@ public class TabFragment2 extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
 
         init(); // 초기화
-
+        /*
         // 성별(버튼)을 눌렀을 때 성별그래프)을 출력
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +97,7 @@ public class TabFragment2 extends Fragment {
         });
 
         buttonOne.callOnClick();
+        */
 
         return rootView;
     }
@@ -102,40 +108,63 @@ public class TabFragment2 extends Fragment {
     public void init() {
 
         mContext = getActivity().getApplicationContext(); // MainActivity의 context를 받아옴
+        mDbManager = new DBManager(mContext); // DB 생성
+
+        list = null;
+        list = new ArrayList<>();
+        list = mDbManager.getRecord(); // Local DB에서 record list를 받아옴
 
         // 'smombie'란 파일을 읽음
         pref = mContext.getSharedPreferences(getResources().getString(R.string.app_name), mContext.MODE_PRIVATE);
 
         layout1 = (RelativeLayout) rootView.findViewById(R.id.tab2_charLayout1);
-        layout2 = (RelativeLayout) rootView.findViewById(R.id.tab2_charLayout2);
 
         chart1 = (HorizontalBarChart) rootView.findViewById(R.id.tab2_chart1);
-        chart2 = (HorizontalBarChart) rootView.findViewById(R.id.tab2_chart2);
 
-        buttonOne = (ImageView) rootView.findViewById(R.id.tab2_button1);
-        buttonTwo = (ImageView) rootView.findViewById(R.id.tab2_button2);
+        //buttonOne = (ImageView) rootView.findViewById(R.id.tab2_button1);
+        //buttonTwo = (ImageView) rootView.findViewById(R.id.tab2_button2);
 
         textProperty = (TextView) rootView.findViewById(R.id.tab2_text);
 
         chartOne();
-        chartTwo();
     }
 
     /**
      * 성별평균을 기준으로 하는 HorizontalBarChart
      */
     public void chartOne() {
+
+        int cnt = 0;
+        int first = 0;
+        int second = 0;
+
+        int day = list.get(list.size()-1).getmDay() - list.get(0).getmDay() + 1;
+
+        while (cnt < list.size()) {
+
+            if((list.get(cnt).getmPurpose()).equals("적립")) {
+                first += list.get(cnt).getmPoint()/day;
+            }
+            else {
+                second += list.get(cnt).getmPoint()/day;
+            }
+
+            cnt ++;
+        }
+
         List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(2, pref.getInt("AVGDIST", 0)));
+        entries.add(new BarEntry(2, first));
         entries.add(new BarEntry(1, 0));
-        if(  pref.getString("GENDER", "").compareTo("남자") == 0 ) {
-            entries.add(new BarEntry(0, pref.getFloat("AVGMALE", 0)));
-            userGender = 1;
-        }
-        else {
-            entries.add(new BarEntry(0, pref.getFloat("AVGFEMALE", 0)));
-            userGender = 2;
-        }
+        entries.add(new BarEntry(0, second));
+
+        //if(  pref.getString("GENDER", "").compareTo("남자") == 0 ) {
+        //    entries.add(new BarEntry(0, pref.getFloat("AVGMALE", 0)));
+        //    userGender = 1;
+        //}
+        //else {
+        //    entries.add(new BarEntry(0, pref.getFloat("AVGFEMALE", 0)));
+        //    userGender = 2;
+        //}
 
         BarDataSet set = new BarDataSet(entries, "이동거리");
 

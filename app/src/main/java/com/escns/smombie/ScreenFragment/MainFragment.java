@@ -2,6 +2,7 @@ package com.escns.smombie.ScreenFragment;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -18,12 +19,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.escns.smombie.Adapter.ItemMainAdapter;
 import com.escns.smombie.Item.ItemMain;
+import com.escns.smombie.PointActivity;
 import com.escns.smombie.R;
+import com.escns.smombie.ShopActivity;
 import com.escns.smombie.Utils.RandomAd;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -63,6 +67,10 @@ public class MainFragment extends Fragment {
 
     ScrollView mRecyclerView;
     FrameLayout mHeader;
+
+    LinearLayout layoutPoint;
+    LinearLayout layoutGoal;
+    LinearLayout layoutShop;
 
     /**
      * Profile Image 다운 성공 시 호출하여 profile update를 수행한다.
@@ -138,9 +146,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
 
-        ((TextView) rootView.findViewById(R.id.section1_text)).setText(""+pref.getInt("POINT", 0));
+        ((TextView) rootView.findViewById(R.id.section1_text)).setText(""+pref.getInt("userPoint", 0));
         ((TextView) rootView.findViewById(R.id.section2_text)).setText(""+pref.getInt("GOAL", 0));
-        ((TextView) rootView.findViewById(R.id.section3_text)).setText(""+pref.getInt("REWORD", 0));
+        //((TextView) rootView.findViewById(R.id.section3_text)).setText(""+pref.getInt("REWORD", 0));
 
         if (!statAppFirst) {
             /*
@@ -206,6 +214,25 @@ public class MainFragment extends Fragment {
 
         TwoWayView twoWayView2 = (TwoWayView) rootView.findViewById(R.id.item_main_detail2);
         twoWayView2.setAdapter(new ItemMainAdapter(mContext, 0, getItemMains(4)));
+
+        layoutPoint = (LinearLayout) rootView.findViewById(R.id.goPoint);
+        layoutShop = (LinearLayout) rootView.findViewById(R.id.goShop);
+
+        layoutPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getActivity().getApplicationContext(), PointActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        layoutShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getActivity().getApplicationContext(), ShopActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

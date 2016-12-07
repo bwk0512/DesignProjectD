@@ -50,6 +50,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".PointActivity" />
+        <activity android:name=".ShopActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

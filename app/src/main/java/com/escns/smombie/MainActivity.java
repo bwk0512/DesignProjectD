@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -233,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)HeaderLayout.findViewById(R.id.header_email)).setText(pref.getString("userEmail", "사용자 이메일"));
         Log.i("tag", "EMAIL " + pref.getString("userEmail", "사용자 이메일"));
         Log.i("tag", "GENDER " + pref.getString("userGender", "중성자"));
+
 
         /*
         Thread thread =  new Thread(new Runnable() {

@@ -81,9 +81,9 @@ public class HistoryFragment extends Fragment {
     public void onStart() {
 
         tabLayout.removeAllTabs();
-        tabLayout.addTab(tabLayout.newTab().setText("날짜별"));
-        tabLayout.addTab(tabLayout.newTab().setText("관계별"));
-        tabLayout.addTab(tabLayout.newTab().setText("성과별"));
+        tabLayout.addTab(tabLayout.newTab().setText("날짜"));
+        tabLayout.addTab(tabLayout.newTab().setText("평균"));
+        tabLayout.addTab(tabLayout.newTab().setText("전체 점수"));
         tabLayout.setTabTextColors(getResources().getColor(R.color.tab_menu), getResources().getColor(R.color.tab_menuSelect));
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_lineSelect));
         tabLayout.setSelectedTabIndicatorHeight(8);

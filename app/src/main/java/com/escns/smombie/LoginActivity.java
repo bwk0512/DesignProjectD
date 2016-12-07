@@ -66,35 +66,43 @@ public class LoginActivity extends Activity {
 
         pref = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
 
-        mDbManager = new DBManager(this);
-        mDbManager.dropAllTable();
-        mDbManager.CreateAllTable();
+        if(pref.getBoolean("isFirst",true)) {
 
-        Record r = new Record(100, "적립", 2016, 05, 12, 1);
-        mDbManager.insertRecord(r);
-        r = new Record(50, "소비", 2016, 05, 12, 3);
-        mDbManager.insertRecord(r);
-        r = new Record(1200, "적립", 2016, 05, 12, 4);
-        mDbManager.insertRecord(r);
+            SharedPreferences.Editor edit = pref.edit();
+            edit.putBoolean("isFirst", false);
+            edit.commit();
 
-        mUserId = "abc123";
-        mUserPassword = "123";
-        mUserName = "김병우";
-        mUserAge = 25;
-        mUserGender = "남자";
-        mUserEmail = "hyo99075@naver.com";
-        mUserPoint = 100;
+            mDbManager = new DBManager(this);
+            //mDbManager.dropAllTable();
+            mDbManager.CreateAllTable();
 
+            Record r = new Record(100, "적립", 2016, 12, 7, 1);
+            mDbManager.insertRecord(r);
+            r = new Record(200, "소비", 2016, 12, 7, 3);
+            mDbManager.insertRecord(r);
+            r = new Record(520, "적립", 2016, 12, 7, 4);
+            mDbManager.insertRecord(r);
+            r = new Record(30, "적립", 2016, 12, 8, 0);
+            mDbManager.insertRecord(r);
 
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("userId",mUserId);
-        editor.putString("userPassword",mUserPassword);
-        editor.putString("userName",mUserName);
-        editor.putInt("userAge",mUserAge);
-        editor.putString("userGender",mUserGender);
-        editor.putString("userEmail",mUserEmail);
-        editor.putInt("userPoint",mUserPoint);
-        editor.commit();
+            mUserId = "abc123";
+            mUserPassword = "123";
+            mUserName = "김병우";
+            mUserAge = 25;
+            mUserGender = "남자";
+            mUserEmail = "hyo99075@naver.com";
+            mUserPoint = 450;
+
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("userId", mUserId);
+            editor.putString("userPassword", mUserPassword);
+            editor.putString("userName", mUserName);
+            editor.putInt("userAge", mUserAge);
+            editor.putString("userGender", mUserGender);
+            editor.putString("userEmail", mUserEmail);
+            editor.putInt("userPoint", mUserPoint);
+            editor.commit();
+        }
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

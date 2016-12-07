@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.escns.smombie.DAO.Record;
+import com.escns.smombie.Manager.DBManager;
 import com.escns.smombie.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -29,6 +31,9 @@ public class TabFragment3 extends Fragment {
 
     Context mContext; // MainActiviy의 context를 받아올 객체
     private SharedPreferences pref; // 파일에 있는 정보를 불러오기위한 객체
+
+    private DBManager mDbManager; // Local DB에 접근하기 위한 객체
+    private List<Record> list; // DB에서 Recod를 가져오기 위한 List
 
     RelativeLayout layout1; // 레이아웃 : 성공률
 
@@ -51,6 +56,11 @@ public class TabFragment3 extends Fragment {
     public void init() {
 
         mContext = getActivity().getApplicationContext(); // MainActivity의 context를 받아옴
+        mDbManager = new DBManager(mContext); // DB 생성
+
+        list = null;
+        list = new ArrayList<>();
+        list = mDbManager.getRecord(); // Local DB에서 record list를 받아옴
 
         // 'smombie'란 파일을 읽음
         pref = mContext.getSharedPreferences(getResources().getString(R.string.app_name), mContext.MODE_PRIVATE);
@@ -71,9 +81,25 @@ public class TabFragment3 extends Fragment {
      * 성공률을 나타내는 PieChart
      */
     public void chart() {
+
+        int cnt = 0;
+        int increase = 0;
+        int decrease = 0;
+        while (cnt < list.size()) {
+
+            if((list.get(cnt).getmPurpose()).equals("적립")) {
+                increase += list.get(cnt).getmPoint();
+            }
+            else {
+                decrease += list.get(cnt).getmPoint();
+            }
+
+            cnt ++;
+        }
+
         List<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(pref.getInt("POINT",0), "걸은거리"));
-        entries.add(new PieEntry(pref.getInt("GOAL",0)-pref.getInt("POINT",0), "남은거리"));
+        entries.add(new PieEntry(increase, "적립"));
+        entries.add(new PieEntry(decrease, "소비"));
 
         int failCnt = pref.getInt("POINT", 999);
         int successCnt = pref.getInt("GOAL",0);
@@ -92,7 +118,7 @@ public class TabFragment3 extends Fragment {
 
         chart1.setData(data);
         chart1.setDescription("");
-        chart1.setCenterText("달성률\n" + (int)percent + "%");
+        chart1.setCenterText("포인트\n"/* + (int)percent + "%"*/);
         chart1.setCenterTextSize(15);
         chart1.setTouchEnabled(false);
         chart1.invalidate(); // refresh
