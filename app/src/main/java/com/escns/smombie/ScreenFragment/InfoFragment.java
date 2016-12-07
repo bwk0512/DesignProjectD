@@ -1,14 +1,18 @@
 package com.escns.smombie.ScreenFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.escns.smombie.MainActivity;
+import com.escns.smombie.PointActivity;
 import com.escns.smombie.R;
 
 /**
@@ -25,6 +29,8 @@ public class InfoFragment extends Fragment {
     private SharedPreferences pref; // 내정보 화면에서 유저정보를 파일에서 가져오기 위한 객체
 
     View rootView;
+
+    RelativeLayout layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,5 +55,14 @@ public class InfoFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.info_age)).setText(pref.getInt("userAge",00)+"세");
         ((TextView) rootView.findViewById(R.id.info_email)).setText(pref.getString("userEmail",""));
 
+        layout = (RelativeLayout) rootView.findViewById(R.id.layoutClick);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getActivity().getApplicationContext(), PointActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

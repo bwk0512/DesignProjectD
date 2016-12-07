@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends Activity {
 
-    private DBManager mDbManger;
+    private DBManager mDbManager;
     private SharedPreferences pref;
 
     private String mUserId;
@@ -66,10 +66,16 @@ public class LoginActivity extends Activity {
 
         pref = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
 
-        mDbManger = new DBManager(this);
-        mDbManger.dropAllTable();
-        mDbManger.CreateAllTable();
+        mDbManager = new DBManager(this);
+        mDbManager.dropAllTable();
+        mDbManager.CreateAllTable();
 
+        Record r = new Record(100, "적립", 2016, 05, 12, 1);
+        mDbManager.insertRecord(r);
+        r = new Record(50, "소비", 2016, 05, 12, 3);
+        mDbManager.insertRecord(r);
+        r = new Record(1200, "적립", 2016, 05, 12, 4);
+        mDbManager.insertRecord(r);
 
         mUserId = "abc123";
         mUserPassword = "123";

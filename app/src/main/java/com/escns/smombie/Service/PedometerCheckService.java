@@ -115,7 +115,7 @@ public class PedometerCheckService extends Service {
         init();
         startSensor();
 
-        startReceiver();
+        //startReceiver();
     }
 
     //@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -195,6 +195,7 @@ public class PedometerCheckService extends Service {
 
                 list = mDbManger.getRecord();
 
+                mPurpose = "적립";
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH)+1;
                 mDay = c.get(Calendar.DATE);
@@ -212,12 +213,11 @@ public class PedometerCheckService extends Service {
                     mDbManger.insertRecord(record);
                 }
                 else {
-                    if (list.get(cnt).getmYear() == mYear &&
-                            list.get(cnt).getmMonth() == mMonth &&
-                            list.get(cnt).getmDay() == mDay &&
-                            list.get(cnt).getmHour() == mHour) {
+                    if (list.get(cnt-1).getmYear() == mYear &&
+                            list.get(cnt-1).getmMonth() == mMonth &&
+                            list.get(cnt-1).getmDay() == mDay &&
+                            list.get(cnt-1).getmHour() == mHour) {
 
-                        mPoint = list.get(cnt).getmPoint();
                         record.setmPoint(mPoint);
                         mDbManger.updateLastRecord(record);
                     } else {
@@ -339,26 +339,24 @@ public class PedometerCheckService extends Service {
         mHour = c.get(Calendar.HOUR_OF_DAY);
         record = new Record(mPoint,mPurpose,mYear,mMonth,mDay,mHour);
 
-        /*
         int cnt = mDbManger.getRowCount();
 
         if(cnt == 0) {
             mDbManger.insertRecord(record);
         }
         else {
-            if (list.get(cnt).getmYear() == mYear &&
-                    list.get(cnt).getmMonth() == mMonth &&
-                    list.get(cnt).getmDay() == mDay &&
-                    list.get(cnt).getmHour() == mHour) {
+            if (list.get(cnt-1).getmYear() == mYear &&
+                    list.get(cnt-1).getmMonth() == mMonth &&
+                    list.get(cnt-1).getmDay() == mDay &&
+                    list.get(cnt-1).getmHour() == mHour) {
 
-                mPoint = list.get(list.size() - 1).getmPoint();
+                mPoint = list.get(cnt - 1).getmPoint();
                 record.setmPoint(mPoint);
                 mDbManger.updateLastRecord(record);
             } else {
                 mDbManger.insertRecord(record);
             }
         }
-        */
 
         //noSaveConut = 0;
 
@@ -460,7 +458,7 @@ public class PedometerCheckService extends Service {
             mCountDownTimer.cancel();
             registerRestartAlarm();
         } else {
-            unregisterReceiver(mReceiver);
+            //unregisterReceiver(mReceiver);
         }
 
         //mDbManger.deleteLastRecord();

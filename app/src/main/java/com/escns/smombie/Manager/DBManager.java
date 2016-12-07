@@ -57,7 +57,7 @@ public class DBManager extends SQLiteOpenHelper {
         sb.append(" CREATE TABLE " + RECORD_TABLE + " ( ");
         sb.append(" _id INTEGER PRIMARY KEY AUTOINCREMENT, "); // 의미없음
         sb.append(" POINT INTEGER, ");
-        sb.append(" PURPOSE VARCHAR(10), ");
+        sb.append(" PURPOSE TEXT, ");
         sb.append(" YEAR INTEGER, ");
         sb.append(" MONTH INTEGER, ");
         sb.append(" DAY INTEGER, ");
@@ -74,9 +74,9 @@ public class DBManager extends SQLiteOpenHelper {
 
         sb2.append(" CREATE TABLE " + ITEM_TABLE + " ( ");
         sb2.append(" _id INTEGER PRIMARY KEY AUTOINCREMENT, "); // 의미없음
-        sb2.append(" NAME VARCHAR(20), ");
+        sb2.append(" NAME TEXT, ");
         sb2.append(" PRICE INTEGER, ");
-        sb2.append(" IMAGE VARCHAR(20), ");
+        sb2.append(" IMAGE TEXT, ");
         sb2.append(" ACCOUNT INTEGER ) ");
 
         db2.execSQL(sb2.toString());
@@ -102,10 +102,22 @@ public class DBManager extends SQLiteOpenHelper {
      * @param data
      */
     public void insertRecord(Record data) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO " + RECORD_TABLE + " (POINT, PURPOSE, YEAR, MONTH, DAY, HOUR) VALUES (" +
+                data.getmPoint() + "," +
+                "'" + data.getmPurpose() + "'," +
+                data.getmYear() + "," +
+                data.getmMonth() + "," +
+                data.getmDay() + "," +
+                data.getmHour() + ")");
+        db.close();
+
+        /*
         SQLiteDatabase db = null;
         try {
             db = getWritableDatabase();
-            db.execSQL("INSERT INTO " + RECORD_TABLE + " (POINT, PURPOSE, YEAR, MONTH, DAY, HOUR) VALUES (" +
+            db.execSQL("INSERT INTO " + RECORD_TABLE + " VALUES(POINT, PURPOSE, YEAR, MONTH, DAY, HOUR) VALUES (" +
                     data.getmPoint() + "," +
                     data.getmPurpose() + "," +
                     data.getmYear() + "," +
@@ -121,16 +133,17 @@ public class DBManager extends SQLiteOpenHelper {
                 db.close();
             }
         }
+        */
     }
 
     public void insertItem(Item data) {
         SQLiteDatabase db = null;
         try {
             db = getWritableDatabase();
-            db.execSQL("INSERT INTO " + ITEM_TABLE + " (NAME, PRICE, IMAGE, ACCOUNT) VALUES (" +
-                    data.getmName() + "," +
+            db.execSQL("INSERT INTO " + ITEM_TABLE + " VALUES(NAME, PRICE, IMAGE, ACCOUNT) VALUES (" +
+                    "'" + data.getmName() + "'," +
                     data.getmPrice() + "," +
-                    data.getmImage() + "," +
+                    "'" + data.getmImage() + "'," +
                     data.getmAccount() + ")");
 
 
@@ -221,8 +234,11 @@ public class DBManager extends SQLiteOpenHelper {
     public void dropAllTable() {
         SQLiteDatabase db = getWritableDatabase(); // 데이터베이스 불러오기 - 쓰기전용
         db.execSQL("DROP TABLE IF EXISTS " + RECORD_TABLE); // 쿼리문 입력
-        db.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE); // 쿼리문 입력
         db.close();
+
+        SQLiteDatabase db2 = getWritableDatabase();
+        db2.execSQL("DROP TABLE IF EXISTS " + ITEM_TABLE); // 쿼리문 입력
+        db2.close();
     }
 
     /**
