@@ -366,7 +366,8 @@ public class TabFragment1 extends Fragment {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getmYear() == mYear &&
                     list.get(i).getmMonth() == mMonth &&
-                    list.get(i).getmDay() == mDate) {
+                    list.get(i).getmDay() == mDate &&
+                    list.get(i).getmPurpose().equals("적립")) {
                 if (time >= 0 && time < 6) {
                     if (list.get(i).getmHour() >= 0 && list.get(i).getmHour() < 6) {
                         result += list.get(i).getmPoint();
@@ -405,7 +406,8 @@ public class TabFragment1 extends Fragment {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getmYear() == year &&
                     list.get(i).getmMonth() == month &&
-                    list.get(i).getmDay() == date) {
+                    list.get(i).getmDay() == date &&
+                    list.get(i).getmPurpose().equals("적립")) {
                 result += list.get(i).getmPoint();
             }
         }
@@ -425,7 +427,8 @@ public class TabFragment1 extends Fragment {
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getmYear() == year &&
-                    list.get(i).getmMonth() == month) {
+                    list.get(i).getmMonth() == month &&
+                    list.get(i).getmPurpose().equals("적립")) {
                 result += list.get(i).getmPoint();
             }
         }

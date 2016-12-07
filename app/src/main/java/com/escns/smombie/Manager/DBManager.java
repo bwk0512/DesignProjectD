@@ -137,6 +137,16 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public void insertItem(Item data) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO " + ITEM_TABLE + " (NAME, PRICE, IMAGE, ACCOUNT) VALUES (" +
+                "'" + data.getmName() + "'," +
+                data.getmPrice() + "," +
+                "'" + data.getmImage() + "'," +
+                data.getmAccount() + ")");
+        db.close();
+
+        /*
         SQLiteDatabase db = null;
         try {
             db = getWritableDatabase();
@@ -154,6 +164,7 @@ public class DBManager extends SQLiteOpenHelper {
                 db.close();
             }
         }
+        */
     }
 
     /**
@@ -259,6 +270,27 @@ public class DBManager extends SQLiteOpenHelper {
         cursor.close();
 
         db.execSQL("UPDATE " + RECORD_TABLE + " SET POINT = " + r.getmPoint() +
+                " WHERE _id = " + id
+        ); // 쿼리문 입력
+        db.close();
+    }
+
+    public void updateItem(Item it) {
+
+        int id = 0;
+
+        SQLiteDatabase db = getWritableDatabase(); // 데이터베이스 불러오기 - 쓰기전용
+
+        Cursor cursor; // 테이블 한줄한줄 읽어오기 위한 Cursor 클래스
+        cursor = db.rawQuery("SELECT * from "+ ITEM_TABLE, null); // RECORD_LIST 테이블 전부 콜
+
+        while(cursor.moveToNext()) { // 테이블이 끝 날때까지 동작하는 반복문
+            if(it.getmPrice() == cursor.getInt(2))
+                id = cursor.getInt(0); // 정수형 데이터 콜
+        }
+        cursor.close();
+
+        db.execSQL("UPDATE " + ITEM_TABLE + " SET ACCOUNT = " + it.getmAccount() +
                 " WHERE _id = " + id
         ); // 쿼리문 입력
         db.close();

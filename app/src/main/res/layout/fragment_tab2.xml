@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="175dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="25dp"
         android:text="적립"
         android:textSize="16dp"
         android:id="@+id/textView2" />

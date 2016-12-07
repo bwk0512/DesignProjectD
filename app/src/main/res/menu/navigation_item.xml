@@ -38,7 +38,7 @@
         <item
             android:id="@+id/drawer_menu4"
             android:icon="@drawable/sidemenu_icon_logout"
-            android:title="로그아웃" />
+            android:title="종료" />
     </group>
     <group
         android:id="@+id/drawer_Group6"

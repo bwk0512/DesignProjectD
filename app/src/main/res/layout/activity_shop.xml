@@ -3,6 +3,106 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@color/second_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shop"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="40dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:background="@drawable/shop1">
+
+        <Button
+            android:id="@+id/buttonBuy1"
+            android:text="구 입"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textViewAccount1"
+            android:text="0"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonBuy1"
+            android:layout_alignLeft="@+id/buttonBuy1"
+            android:layout_alignStart="@+id/buttonBuy1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:background="@drawable/shop2">
+
+        <Button
+            android:id="@+id/buttonBuy2"
+            android:text="구 입"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textViewAccount2"
+            android:text="0"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonBuy2"
+            android:layout_alignLeft="@+id/buttonBuy2"
+            android:layout_alignStart="@+id/buttonBuy2" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:background="@drawable/shop3">
+
+        <Button
+            android:id="@+id/buttonBuy3"
+            android:text="구 입"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textViewAccount3"
+            android:text="0"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonBuy3"
+            android:layout_alignLeft="@+id/buttonBuy3"
+            android:layout_alignStart="@+id/buttonBuy3" />
+    </RelativeLayout>
 
 </LinearLayout>

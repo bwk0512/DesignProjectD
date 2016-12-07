@@ -182,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_menu4 : // 로그아웃
                         mMenuState = 5;
 
-                        if( pref.getBoolean("switch", true) ) {
-                            pref.edit().putBoolean("switch", false).commit();
-                            stopService(new Intent((MainActivity.this), PedometerCheckService.class));
-                        }
+                        //if( pref.getBoolean("switch", true) ) {
+                        //    pref.edit().putBoolean("switch", false).commit();
+                        //    stopService(new Intent((MainActivity.this), PedometerCheckService.class));
+                        //}
 
                         //com.facebook.login.LoginManager.getInstance().logOut();
-                        startActivity(new Intent(getApplicationContext(), StartActivity.class));
+                        //startActivity(new Intent(getApplicationContext(), StartActivity.class));
                         finish();
                         return true;
                 }

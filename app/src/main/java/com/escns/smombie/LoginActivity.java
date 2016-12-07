@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.escns.smombie.DAO.Item;
 import com.escns.smombie.DAO.Record;
 import com.escns.smombie.DAO.User;
 import com.escns.smombie.DAO.UserJoinRecord;
@@ -59,10 +60,14 @@ public class LoginActivity extends Activity {
     private String mUserEmail;
     private int mUserPoint;
 
+    ImageView buttonStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        buttonStart = (ImageView) findViewById(R.id.login_button_visible);
 
         pref = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
 
@@ -80,10 +85,17 @@ public class LoginActivity extends Activity {
             mDbManager.insertRecord(r);
             r = new Record(200, "소비", 2016, 12, 7, 3);
             mDbManager.insertRecord(r);
-            r = new Record(520, "적립", 2016, 12, 7, 4);
+            r = new Record(500, "적립", 2016, 12, 7, 4);
             mDbManager.insertRecord(r);
-            r = new Record(30, "적립", 2016, 12, 8, 0);
+            r = new Record(100, "적립", 2016, 12, 8, 2);
             mDbManager.insertRecord(r);
+
+            Item item = new Item("아메리카노", 100, "아메리카노", 10);
+            mDbManager.insertItem(item);
+            item = new Item("치즈케잌", 200, "치즈케잌", 10);
+            mDbManager.insertItem(item);
+            item = new Item("아이스크림", 150, "아이스크림", 10);
+            mDbManager.insertItem(item);
 
             mUserId = "abc123";
             mUserPassword = "123";
@@ -91,7 +103,7 @@ public class LoginActivity extends Activity {
             mUserAge = 25;
             mUserGender = "남자";
             mUserEmail = "hyo99075@naver.com";
-            mUserPoint = 450;
+            mUserPoint = 500;
 
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("userId", mUserId);
@@ -103,9 +115,19 @@ public class LoginActivity extends Activity {
             editor.putInt("userPoint", mUserPoint);
             editor.commit();
         }
+        else {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+        buttonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

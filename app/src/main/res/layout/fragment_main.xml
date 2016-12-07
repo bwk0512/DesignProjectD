@@ -138,6 +138,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:background="@color/fourth_color"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -155,6 +156,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:background="@color/fourth_color"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
@@ -258,12 +260,14 @@
 
                     </RelativeLayout>
 
+                    <!--
                     <TextView
                         android:id="@+id/section2_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         style="@style/sectionText"/>
+                    -->
 
                 </LinearLayout>
 

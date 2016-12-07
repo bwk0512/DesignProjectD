@@ -147,7 +147,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
 
         ((TextView) rootView.findViewById(R.id.section1_text)).setText(""+pref.getInt("userPoint", 0));
-        ((TextView) rootView.findViewById(R.id.section2_text)).setText(""+pref.getInt("GOAL", 0));
+        //((TextView) rootView.findViewById(R.id.section2_text)).setText(""+pref.getInt("GOAL", 0));
         //((TextView) rootView.findViewById(R.id.section3_text)).setText(""+pref.getInt("REWORD", 0));
 
         if (!statAppFirst) {

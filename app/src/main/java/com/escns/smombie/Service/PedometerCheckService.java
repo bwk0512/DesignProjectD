@@ -218,7 +218,8 @@ public class PedometerCheckService extends Service {
                     if (list.get(cnt-1).getmYear() == mYear &&
                             list.get(cnt-1).getmMonth() == mMonth &&
                             list.get(cnt-1).getmDay() == mDay &&
-                            list.get(cnt-1).getmHour() == mHour) {
+                            list.get(cnt-1).getmHour() == mHour &&
+                            list.get(cnt-1).getmPurpose().equals("적립")) {
 
                         record.setmPoint(mPoint);
                         mDbManger.updateLastRecord(record);
@@ -354,7 +355,8 @@ public class PedometerCheckService extends Service {
             if (list.get(cnt-1).getmYear() == mYear &&
                     list.get(cnt-1).getmMonth() == mMonth &&
                     list.get(cnt-1).getmDay() == mDay &&
-                    list.get(cnt-1).getmHour() == mHour) {
+                    list.get(cnt-1).getmHour() == mHour &&
+                    list.get(cnt-1).getmPurpose().equals("적립")) {
 
                 mPoint = list.get(cnt - 1).getmPoint();
                 record.setmPoint(mPoint);

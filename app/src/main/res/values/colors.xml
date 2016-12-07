@@ -11,6 +11,7 @@
     <color name="main_color">#ff5722</color>
     <color name="second_color">#ff7900</color>
     <color name="third_color">#d86600</color>
+    <color name="fourth_color">#ffdab9</color>
 
     <color name="tab_menu">#c8c8c8</color>
     <color name="tab_menuSelect">#212121</color>

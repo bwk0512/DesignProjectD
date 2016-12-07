@@ -8,13 +8,14 @@
         android:id="@+id/login_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:src="@drawable/bg_login_original"
         android:scaleType="fitXY"/>
 
     <ImageView
         android:id="@+id/login_button_visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/btn_facebook"
+        android:src="@drawable/btn_start"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

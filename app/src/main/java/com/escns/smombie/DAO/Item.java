@@ -19,7 +19,6 @@ public class Item {
 
     /**
      * 생성자
-     * @param mIndex 유저 고유 번호
      * @param mName 연도
      * @param mPrice 달
      * @param mImage 일
