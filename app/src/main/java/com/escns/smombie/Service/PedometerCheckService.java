@@ -77,15 +77,15 @@ public class PedometerCheckService extends Service {
     private Sensor accelerormeterSensor; // 만보기: 센서
 
     private Calendar c; // 날짜를 받아오기위한 객체
-    private int mIdInt; // 사용자 아이디
-    private int mYear; // 현재 날짜
-    private int mMonth; // 현재 달
-    private int mDate; // 현재 일
-    private int mHour; // 현재 시간
-    private int mDist; // 걸은 거리
-    private int mBeforeDist; // 전 걸은거리
 
-    private int noSaveConut;
+    private int mPoint; // 포인트
+    private String mPurpose;  // 목적
+    private int mYear;  //  연도
+    private int mMonth; // 달
+    private int mDay;   // 일
+    private int mHour;  // 시간
+
+    //private int noSaveConut;
 
     private DBManager mDbManger;
     private Record record;
@@ -187,12 +187,42 @@ public class PedometerCheckService extends Service {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(myTimer,3000,3000); // App 시작 1초 이후에 1초마다 실행
+        timer.schedule(myTimer,5000,5000); // App 시작 1초 이후에 1초마다 실행
 
         // 데이터를 DB에 저장하기 위한 핸들러
         handler = new Handler() {
             public void handleMessage(Message msg) {
 
+                list = mDbManger.getRecord();
+
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH)+1;
+                mDay = c.get(Calendar.DATE);
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+
+                record.setmPurpose(mPurpose);
+                record.setmYear(mYear);
+                record.setmMonth(mMonth);
+                record.setmDay(mDay);
+                record.setmHour(mHour);
+
+                if(list.get(list.size()-1).getmYear() == mYear &&
+                        list.get(list.size()-1).getmMonth() == mMonth &&
+                        list.get(list.size()-1).getmDay() == mDay &&
+                        list.get(list.size()-1).getmHour() == mHour ) {
+
+                    record.setmPoint(mPoint);
+                    mDbManger.updateLastRecord(record);
+                }
+                else {
+                    mPoint = 0;
+                    record.setmPoint(mPoint);
+                    mDbManger.insertRecord(record);
+                }
+
+
+
+                /*
                 // Local DB 업데이트
                 record.setmDist(mDist);
                 mDbManger.updateLastRecord(record);
@@ -275,8 +305,7 @@ public class PedometerCheckService extends Service {
 
                     global.setIsWalking(1);
                 }
-
-
+                */
 
             }
         };
@@ -295,16 +324,28 @@ public class PedometerCheckService extends Service {
         list = mDbManger.getRecord();
 
         c = Calendar.getInstance();
-        mIdInt = pref.getInt("USER_ID_INT", 0);
+        mPoint = 0;
+        mPurpose = "적립";
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH)+1;
-        mDate = c.get(Calendar.DATE);
+        mDay = c.get(Calendar.DATE);
         mHour = c.get(Calendar.HOUR_OF_DAY);
-        mDist = 0;
-        mBeforeDist = 0;
-        noSaveConut = 0;
-        record = new Record(mIdInt,mYear,mMonth,mDate,mHour,mDist);
-        mDbManger.insertRecord(record);
+        record = new Record(mPoint,mPurpose,mYear,mMonth,mDay,mHour);
+
+        if(list.get(list.size()-1).getmYear() == mYear &&
+                list.get(list.size()-1).getmMonth() == mMonth &&
+                list.get(list.size()-1).getmDay() == mDay &&
+                list.get(list.size()-1).getmHour() == mHour ) {
+
+                mPoint = list.get(list.size()-1).getmPoint();
+                record.setmPoint(mPoint);
+                mDbManger.updateLastRecord(record);
+        }
+        else {
+            mDbManger.insertRecord(record);
+        }
+
+        //noSaveConut = 0;
 
         // 서버와의 통신
         Gson gson = new GsonBuilder()
@@ -336,6 +377,7 @@ public class PedometerCheckService extends Service {
         };
     }
 
+    /*
     public void updateUserFunc() {
 
         // SharedPreferences 유저데이터 업데이트
@@ -380,6 +422,7 @@ public class PedometerCheckService extends Service {
         );
         updateUserData(user);
     }
+    */
 
     /**
      * 스위치가 OFF가 되면 가속도센서, 주기시간, 잠금화면이 비활성화
@@ -405,7 +448,7 @@ public class PedometerCheckService extends Service {
             unregisterReceiver(mReceiver);
         }
 
-        mDbManger.deleteLastRecord();
+        //mDbManger.deleteLastRecord();
 
         super.onDestroy();
     }
@@ -433,9 +476,9 @@ public class PedometerCheckService extends Service {
                         // 가속도센서를 이용해 걸음수를 측정
                         Log.d("tag", "onSensorChanged SHAKE !!");
 
-                        if(!global.getIsScreen()) {
-                            mDist++;
-                        }
+                        //if(!global.getIsScreen()) {
+                            mPoint++;
+                        //}
                     }
                     else {
 
@@ -453,44 +496,6 @@ public class PedometerCheckService extends Service {
 
         }
     };
-
-    /**
-     * 서버 DB에 record를 저장하기 위함
-     */
-    public void insertRecordData() {
-        Call<String> currentPoint = mApiService.insertRecord(mIdInt, mYear, mMonth, mDate, mHour, mDist);
-        currentPoint.enqueue(new retrofit2.Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.i("tag", "insertRecordData onResponse");
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.i("tag", "insertRecordData onFailure");
-                Log.i("tag", t.getMessage());
-            }
-        });
-    }
-
-    /**
-     * 파일에 유저정보를 갱신하기 위함
-     */
-    public void updateUserData(User user) {
-        Call<String> currentPoint = mApiService.updateUser(user.getmIdInt(), user.getmName(), user.getmEmail(), user.getmGender(), user.getmAge(), user.getmPoint(), user.getmGoal(), user.getmReword(), user.getmSuccessCnt(), user.getmFailCnt(), user.getmAvgDist());
-        currentPoint.enqueue(new retrofit2.Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.i("tag", "updateUserData onResponse");
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.i("tag", "updateUserData onFailure");
-                Log.i("tag", t.getMessage());
-            }
-        });
-    }
 
     // 전화 상태를 체크하는 Listener
     class PhoneStateListener extends android.telephony.PhoneStateListener {

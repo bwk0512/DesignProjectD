@@ -369,19 +369,19 @@ public class TabFragment1 extends Fragment {
                     list.get(i).getmDay() == mDate) {
                 if (time >= 0 && time < 6) {
                     if (list.get(i).getmHour() >= 0 && list.get(i).getmHour() < 6) {
-                        result += list.get(i).getmDist();
+                        result += list.get(i).getmPoint();
                     }
                 } else if (time >= 6 && time < 12) {
                     if (list.get(i).getmHour() >= 6 && list.get(i).getmHour() < 12) {
-                        result += list.get(i).getmDist();
+                        result += list.get(i).getmPoint();
                     }
                 } else if (time >= 12 && time < 18) {
                     if (list.get(i).getmHour() >= 12 && list.get(i).getmHour() < 18) {
-                        result += list.get(i).getmDist();
+                        result += list.get(i).getmPoint();
                     }
                 } else {
                     if (list.get(i).getmHour() >= 18 && list.get(i).getmHour() < 24) {
-                        result += list.get(i).getmDist();
+                        result += list.get(i).getmPoint();
                     }
                 }
             }
@@ -406,7 +406,7 @@ public class TabFragment1 extends Fragment {
             if (list.get(i).getmYear() == year &&
                     list.get(i).getmMonth() == month &&
                     list.get(i).getmDay() == date) {
-                result += list.get(i).getmDist();
+                result += list.get(i).getmPoint();
             }
         }
         return result;
@@ -426,7 +426,7 @@ public class TabFragment1 extends Fragment {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getmYear() == year &&
                     list.get(i).getmMonth() == month) {
-                result += list.get(i).getmDist();
+                result += list.get(i).getmPoint();
             }
         }
         return result;

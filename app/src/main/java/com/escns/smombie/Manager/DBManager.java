@@ -154,12 +154,12 @@ public class DBManager extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sb.toString(), null);
 
             while (cursor.moveToNext()) {
-                record = new Record(cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getInt(2),
+                record = new Record(cursor.getInt(1),
+                        cursor.getString(2),
                         cursor.getInt(3),
                         cursor.getInt(4),
-                        cursor.getInt(5));
+                        cursor.getInt(5),
+                        cursor.getInt(6));
                 list.add(record);
             }
             cursor.close();
@@ -189,10 +189,10 @@ public class DBManager extends SQLiteOpenHelper {
             Cursor cursor = db.rawQuery(sb.toString(), null);
 
             while (cursor.moveToNext()) {
-                item = new Item(cursor.getString(0),
-                        cursor.getInt(1),
-                        cursor.getString(2),
-                        cursor.getInt(3));
+                item = new Item(cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getString(3),
+                        cursor.getInt(4));
                 list.add(item);
             }
             cursor.close();
@@ -220,7 +220,7 @@ public class DBManager extends SQLiteOpenHelper {
      * Record 테이블의 마지막 행의 mDist를 업데이트한다
      * @param r 업데이트 할 새 mDist 정보
      */
-    public void updateLastRecord_(Record r) {
+    public void updateLastRecord(Record r) {
 
         int id = 0;
 
@@ -233,7 +233,7 @@ public class DBManager extends SQLiteOpenHelper {
         }
         cursor.close();
 
-        db.execSQL("UPDATE " + RECORD_TABLE + " SET DIST = " + r.getmPurpose() +
+        db.execSQL("UPDATE " + RECORD_TABLE + " SET POINT = " + r.getmPoint() +
                 " WHERE _id = " + id
         ); // 쿼리문 입력
         db.close();

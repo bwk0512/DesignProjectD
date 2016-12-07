@@ -65,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
             if(msg.what==UPDATE_PROFILE_IMAGE) {
                 // 사이드 메뉴 header
                 ((CircleImageView)HeaderLayout.findViewById(R.id.header_profile)).setImageBitmap(mFbProfileImage);
-                ((TextView)HeaderLayout.findViewById(R.id.header_name)).setText(pref.getString("NAME", "사용자 이름"));
-                ((TextView)HeaderLayout.findViewById(R.id.header_email)).setText(pref.getString("EMAIL", "사용자 이메일"));
-                Log.i("tag", "EMAIL " + pref.getString("EMAIL", "사용자 이메일"));
-                Log.i("tag", "GENDER " + pref.getString("GENDER", "dddd"));
-                isProfileImageLoaded=true;
+                ((TextView)HeaderLayout.findViewById(R.id.header_name)).setText(pref.getString("userName", "사용자 이름"));
+                ((TextView)HeaderLayout.findViewById(R.id.header_email)).setText(pref.getString("userEmail", "사용자 이메일"));
+                Log.i("tag", "EMAIL " + pref.getString("userEmail", "사용자 이메일"));
+                Log.i("tag", "GENDER " + pref.getString("userGender", "중성자"));
+                //isProfileImageLoaded=true;
             }
         }
     };
@@ -225,10 +225,16 @@ public class MainActivity extends AppCompatActivity {
         mMainFragment = new MainFragment();
         mHistoryFragment = new HistoryFragment();
 
-
         mSettingFragment = new SettingFragment();
         mInfoFragment = new InfoFragment();
 
+        //((CircleImageView)HeaderLayout.findViewById(R.id.header_profile)).setImageBitmap(mFbProfileImage);
+        ((TextView)HeaderLayout.findViewById(R.id.header_name)).setText(pref.getString("userName", "사용자 이름"));
+        ((TextView)HeaderLayout.findViewById(R.id.header_email)).setText(pref.getString("userEmail", "사용자 이메일"));
+        Log.i("tag", "EMAIL " + pref.getString("userEmail", "사용자 이메일"));
+        Log.i("tag", "GENDER " + pref.getString("userGender", "중성자"));
+
+        /*
         Thread thread =  new Thread(new Runnable() {
             @Override
             public void run() {
@@ -253,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         thread.start();
+        */
 
 
 
