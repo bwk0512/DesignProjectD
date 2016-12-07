@@ -115,11 +115,6 @@ public class LoginActivity extends Activity {
             editor.putInt("userPoint", mUserPoint);
             editor.commit();
         }
-        else {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="하루 평균 이동 거리"
+            android:text="하루 평균 적립 및 소비"
             android:textSize="15dp"
             android:layout_marginTop="42dp"
             android:id="@+id/textView5"

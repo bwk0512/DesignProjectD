@@ -133,6 +133,116 @@ public class ShopActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!pref.getBoolean("switch", false)) {
+
+                    list = mDbManager.getItem();
+
+                    int account = list.get(1).getmAccount();
+                    int price = list.get(1).getmPrice();
+                    int userPoint = pref.getInt("userPoint", 0);
+
+                    if (account != 0) {
+                        if (price <= userPoint) {
+                            //item 테이블 수정
+                            Item it = new Item(list.get(1).getmName(), list.get(1).getmPrice(), list.get(1).getmImage(), account - 1);
+                            mDbManager.updateItem(it);
+
+                            String strr = Integer.toString(it.getmAccount());
+                            text2.setText(strr);
+
+                            //유저 보유 포인트 수정
+                            int p = userPoint - price;
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putInt("userPoint", p);
+                            editor.commit();
+
+                            //record 테이블 추가
+                            c = Calendar.getInstance();
+                            mPoint = price;
+                            mPurpose = "소비";
+                            mYear = c.get(Calendar.YEAR);
+                            mMonth = c.get(Calendar.MONTH) + 1;
+                            mDay = c.get(Calendar.DATE);
+                            mHour = c.get(Calendar.HOUR_OF_DAY);
+                            Record record = new Record(mPoint, mPurpose, mYear, mMonth, mDay, mHour);
+                            mDbManager.insertRecord(record);
+
+                            Toast.makeText(getApplicationContext(), "구입 완료", Toast.LENGTH_LONG).show();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "포인트가 부족합니다", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "남은 수량이 없습니다", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠금화면을 비활성화 하십시오", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!pref.getBoolean("switch", false)) {
+
+                    list = mDbManager.getItem();
+
+                    int account = list.get(2).getmAccount();
+                    int price = list.get(2).getmPrice();
+                    int userPoint = pref.getInt("userPoint", 0);
+
+                    if (account != 0) {
+                        if (price <= userPoint) {
+                            //item 테이블 수정
+                            Item it = new Item(list.get(2).getmName(), list.get(2).getmPrice(), list.get(2).getmImage(), account - 1);
+                            mDbManager.updateItem(it);
+
+                            String strr = Integer.toString(it.getmAccount());
+                            text3.setText(strr);
+
+                            //유저 보유 포인트 수정
+                            int p = userPoint - price;
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putInt("userPoint", p);
+                            editor.commit();
+
+                            //record 테이블 추가
+                            c = Calendar.getInstance();
+                            mPoint = price;
+                            mPurpose = "소비";
+                            mYear = c.get(Calendar.YEAR);
+                            mMonth = c.get(Calendar.MONTH) + 1;
+                            mDay = c.get(Calendar.DATE);
+                            mHour = c.get(Calendar.HOUR_OF_DAY);
+                            Record record = new Record(mPoint, mPurpose, mYear, mMonth, mDay, mHour);
+                            mDbManager.insertRecord(record);
+
+                            Toast.makeText(getApplicationContext(), "구입 완료", Toast.LENGTH_LONG).show();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "포인트가 부족합니다", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "남은 수량이 없습니다", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "잠금화면을 비활성화 하십시오", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     @Override
