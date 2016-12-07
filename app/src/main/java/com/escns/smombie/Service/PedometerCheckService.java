@@ -154,15 +154,15 @@ public class PedometerCheckService extends Service {
     private void startReceiver() {
         try {
             // BroadCastReceiver의 필터 설정
-            IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
-            mReceiver = new LockScreenReceiver();
-            registerReceiver(mReceiver, filter);
+            //IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+            //mReceiver = new LockScreenReceiver();
+            //registerReceiver(mReceiver, filter);
 
             PhoneStateListener phoneStateListener = new PhoneStateListener();
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
             telephonyManager.listen(phoneStateListener, android.telephony.PhoneStateListener.LISTEN_CALL_STATE);
 
-            Log.d("tag", "stopSensor - send LOCK_SCREEN_OFF to Broadcast");
+            Log.d("tag", "stopSensor - send LOCK_SCREEN_OFF to Broadcast.");
             Intent intent = new Intent("com.escns.smombie.LOCK_SCREEN_ON");
             sendBroadcast(intent);
 
@@ -189,11 +189,18 @@ public class PedometerCheckService extends Service {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(myTimer,5000,5000); // App 시작 1초 이후에 1초마다 실행
+        timer.schedule(myTimer,1000,1000); // App 시작 1초 이후에 1초마다 실행
 
         // 데이터를 DB에 저장하기 위한 핸들러
         handler = new Handler() {
             public void handleMessage(Message msg) {
+
+                if(global.getIsWalking() == 1 && pref.getInt("isScreen", 0) == 0) {
+
+                    startReceiver();
+                }
+                global.setIsWalking(0);
+
 
                 list = mDbManger.getRecord();
 
@@ -368,6 +375,10 @@ public class PedometerCheckService extends Service {
 
         mNowPoint = pref.getInt("userPoint",0);
 
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("isScreen", 0);
+        editor.commit();
+
         //noSaveConut = 0;
 
         // 서버와의 통신
@@ -502,6 +513,7 @@ public class PedometerCheckService extends Service {
                         //if(!global.getIsScreen()) {
                             mPoint++;
                             mNowPoint++;
+                        global.setIsWalking(1);
                         //}
                     }
                     else {

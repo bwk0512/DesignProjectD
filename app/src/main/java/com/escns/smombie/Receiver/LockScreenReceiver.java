@@ -79,12 +79,22 @@ public class LockScreenReceiver extends BroadcastReceiver {
 
         String action = intent.getAction();
 
+
+        if(!action.equals("com.escns.smombie.LOCK_SCREEN_OFF")) {
+
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putInt("isScreen", 1);
+            editor.commit();
+
+            drawLockScreen(context);
+
+        }
+
         // 어떤 메시지인지 확인
         if(action.equals(intent.ACTION_SCREEN_OFF)) {
 
-            global.setIsScreen(false);
-
-            drawLockScreen(context);
+            //global.setIsScreen(false);
+            //drawLockScreen(context);
 
         } else if(action.equals("com.escns.smombie.CALL_STATE_RINGING")) {
             isRinging = true;
@@ -132,6 +142,11 @@ public class LockScreenReceiver extends BroadcastReceiver {
     }
 
     private void removeLockScreen() {
+
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("isScreen", 0);
+        editor.commit();
+
         if(mLockScreenView != null) {
             mWindowManager.removeView(mLockScreenView);
         }
@@ -186,6 +201,7 @@ public class LockScreenReceiver extends BroadcastReceiver {
         mWindowManager.addView(mLockScreenView, mParams);
 
         disableStatusBarView = new View(context);
+
 
         WindowManager.LayoutParams handleParams = new WindowManager.LayoutParams(
         WindowManager.LayoutParams.TYPE_TOAST,

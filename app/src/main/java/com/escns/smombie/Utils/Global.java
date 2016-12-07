@@ -14,7 +14,7 @@ public class Global {
 
     private static Global mGlobal;
     private int isWalking = MOVE; // 걷는지 멈쳤는지 판단
-    private boolean isScreen = true;
+    private boolean isScreen = false;
     private boolean isNetworking = true; // 인터넷에 연결되어 있는지 아닌지 판단
 
     /**

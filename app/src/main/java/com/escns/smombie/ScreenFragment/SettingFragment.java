@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.escns.smombie.R;
 import com.escns.smombie.Service.PedometerCheckService;
@@ -74,6 +75,7 @@ public class SettingFragment extends Fragment {
                             Log.d("tag", "잠금화면 활성화");
                             pref.edit().putBoolean("switch", true).commit();
                             mContext.startService(new Intent(mContext, PedometerCheckService.class));
+                            Toast.makeText(getActivity().getApplicationContext(), "활성화", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -95,6 +97,7 @@ public class SettingFragment extends Fragment {
                     Log.d("tag", "잠금화면 비활성화");
                     pref.edit().putBoolean("switch", false).commit();
                     mContext.stopService(new Intent(mContext, PedometerCheckService.class));
+                    Toast.makeText(getActivity().getApplicationContext(), "비활성화", Toast.LENGTH_SHORT).show();
                 }
 
             }

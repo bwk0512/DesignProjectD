@@ -118,7 +118,7 @@ public class TabFragment3 extends Fragment {
 
         chart1.setData(data);
         chart1.setDescription("");
-        chart1.setCenterText("포인트\n"/* + (int)percent + "%"*/);
+        chart1.setCenterText("포인트"/* + (int)percent + "%"*/);
         chart1.setCenterTextSize(15);
         chart1.setTouchEnabled(false);
         chart1.invalidate(); // refresh
